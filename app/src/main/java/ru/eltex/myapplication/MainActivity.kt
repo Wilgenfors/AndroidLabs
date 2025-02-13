@@ -34,6 +34,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.eltex.myapplication.ui.theme.MyApplicationTheme
+
+
 //6. Создать программу для вычисления суммы первых n членов арифметической прогрессии (вводятся a,
 //d, n, выводятся все члены последовательности и их сумма).
 
@@ -86,17 +88,47 @@ fun MyUI() { //функция для построения интерфейса
             onClick = { //обработчик нажатия на кнопку
 //разделяем введенные значения через пробел и сохраняем их в виде списка
                 val numbers = value1.split(" ").toList()
+                // Список разделяю и присваиваю переменным:
+                var a0 = numbers[0].toInt()
+                val d = numbers[1].toInt()
+                var n = numbers[2].toInt()
+
+                // Cоздаю новый список состоящий из членнов прогрессии:
+                val membersProgression = mutableListOf((0)) // Список с первым членом прогресси:
+
+                var n_elem = 0;
+                var i = 0;
+                // Переменныя для вывода членов прогрессии:
+                var resultStr = "members: "
+                while (n_elem != n ){
+                    var an = a0 + (d *(n - 1))
+                    resultStr += " $an"
+                    membersProgression.add(i+1, an)
+                    ++i
+                    ++n_elem
+                }
+
+
 //показываем всплывающее сообщение для проверки списка с числами
                 Toast.makeText(context, "list = $numbers", Toast.LENGTH_LONG).show()
-//в переменную result сохраняем сумму эл-ов списка
-                result = numbers.sumOf { it.toInt() }
-                value2 = result.toString() //и сохраняем сумму во второй объект для текста
+//в переменную result сохраняем сумму членов прогрессии списка:
+                result = (membersProgression.sumOf { it }) / 2
+//                var resultStr = "members: "
+//                for (member in 0 until n) {
+//                    resultStr += " " + membersProgression[member]
+//                }
+                resultStr += " summ members: $result"
+                value2 = resultStr
+
             }
         ) {
             Text("Ok", fontSize = 24.sp) //текстовая надпись для кнопки
         }
-        Text( //текст для вывода результата с нужными параметрами
-            text = "sum = $value2",
+        Text(
+            // Проходимся по списку и выводим члены прогрессии:
+
+            // Затем выводим их сумму:
+            text = "$value2",
             color = Color.Green, //меняем цвет
             fontSize = 24.sp
         )
