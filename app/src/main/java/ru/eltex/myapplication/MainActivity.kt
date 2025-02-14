@@ -94,30 +94,27 @@ fun MyUI() { //функция для построения интерфейса
                 var n = numbers[2].toInt()
 
                 // Cоздаю новый список состоящий из членнов прогрессии:
-                val membersProgression = mutableListOf((0)) // Список с первым членом прогресси:
+                //val membersProgression = mutableListOf() // Список с первым членом прогресси:
 
-                var n_elem = 0;
-                var i = 0;
                 // Переменныя для вывода членов прогрессии:
-                var resultStr = "members: "
-                while (n_elem != n ){
-                    var an = a0 + (d *(n - 1))
-                    resultStr += " $an"
-                    membersProgression.add(i+1, an)
-                    ++i
-                    ++n_elem
+                val membersProgression = mutableListOf<Int>()
+                var n_elem = 0;
+                var resultStr = "members = "
+                // Создаем список из членов прогрессии и добавляем в value2 через resultStr:
+                while (n_elem < n) {
+                    val an = a0 + (d * n_elem)
+                    membersProgression.add(an)
+                    resultStr += "$an"
+                    n_elem++
                 }
+                if (resultStr == "members = ") resultStr += " There is not"
 
-
-//показываем всплывающее сообщение для проверки списка с числами
+                //показываем всплывающее сообщение для проверки списка с числами
                 Toast.makeText(context, "list = $numbers", Toast.LENGTH_LONG).show()
-//в переменную result сохраняем сумму членов прогрессии списка:
-                result = (membersProgression.sumOf { it }) / 2
-//                var resultStr = "members: "
-//                for (member in 0 until n) {
-//                    resultStr += " " + membersProgression[member]
-//                }
-                resultStr += " summ members: $result"
+                //в переменную result сохраняем сумму членов прогрессии списка:
+                result = (membersProgression.sumOf { it })
+
+                resultStr += "; summ members = $result"
                 value2 = resultStr
 
             }
